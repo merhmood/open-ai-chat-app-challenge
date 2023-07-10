@@ -1,0 +1,175 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Login    
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet")
+        
+        //- styles
+        style.
+            * {
+                font-family: 'Poppins', sans-serif;
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            form {
+                width: 90%;
+                max-width: 503px; 
+                margin: 0 auto;
+                margin-top: 10%;
+            }
+            form header {
+                display: flex;
+                padding: 20px 0;
+            }
+            form header div {
+                margin-right: 20px; 
+            }
+            form p {
+                font-family: Tahoma;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+            form a{
+                display: block;
+                margin-bottom: 10px;
+            }
+            form label {
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+            form > input {
+                display: block;
+                border: 1px solid #A4A9BF;
+                border-radius: 3px;
+                width: 100%;
+                padding: 7px;
+                margin-bottom: 20px;
+            }
+            form div{
+                margin-top: 20px;
+            }
+            form div label {
+                margin-left: 10px;
+            }
+            button {
+                padding: 8px 32px;
+                border-radius: 5px;
+                margin-top: 15px;
+                cursor: pointer;
+                border: none;
+                background-color: #46B455;
+                color: white;
+            }
+            h5{
+                margin-top: 10px;
+            }
+    body
+        form(id="form")
+            include includes/header.pug
+            p Please Sign up
+            a(href="/login") Already have an account? login.
+            label(for="email") Email Address
+            input(type="text", name="email", id="email")
+            label(for="password") Password
+            input(type="password", name="password", id="password")
+            label(for="password", style="font-size: 12px") minimum password length 8
+            div
+                input(type="checkbox", name="show password", id="checkbox")
+                label(for="checkbox") Show password 
+            button(id="signup") Signup
+            h5(id="message")
+        
+        //- scripts
+        script(src="https://unpkg.com/validator@latest/validator.min.js")
+        script.
+            // Show Password Module.
+            (function() {
+                const checkbox = document.getElementById("checkbox");
+                const password = document.getElementById("password");
+                // Attached a click event to the checkbox
+                checkbox.addEventListener("click", ()=>{
+                    showPassword(password, checkbox);
+                })
+                // Handles showing and hiding of the password in the login form
+                function showPassword(password, checkbox) {
+                    // Check current state checkbox to decide
+                    // which state to toggle it to.
+                    if(checkbox.checked){
+                        password.setAttribute("type", "text");
+                    }
+                    else{
+                        password.setAttribute("type", "password");
+                    }
+                }
+            })();
+
+            // Validate form module
+            (function() { 
+                const form = document.getElementById("form");
+                form.addEventListener("submit", (e)=>{
+                    e.preventDefault();
+                });
+                const signup = document.getElementById("signup");
+                signup.addEventListener("click", ()=>{
+                    const email = document.getElementById("email");
+                    const password = document.getElementById("password");
+                    try{
+                        if(!validator){
+                            throw new Error("network error")
+                        }
+                        else{
+                            // Handles validation of email and password
+                            if(validator.isEmail(email.value) && validator.isStrongPassword(password.value, {
+                            minLength: 8,  
+                            minLowercase: 0, 
+                            minUppercase: 0, 
+                            minNumbers: 0, 
+                            minSymbols: 0
+                            })){
+                                fetch("http://localhost:3000/signup", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: JSON.stringify({email: email.value, password: password.value})
+                                }).
+                                then((res)=>res.json()).
+                                then((data)=>{
+                                    if(data.message === "signup successful"){
+                                        let h5 = document.getElementById("message");
+                                        h5.style.color = "green";
+                                        h5.innerHTML = "Sucessful, redirecting...";
+                                        // Redirects to homepage
+                                        setTimeout(()=>{
+                                            window.location.href="http://localhost:3000/login";
+                                        }, 2000);
+                                    }
+                                }).
+                                catch(()=>{
+                                    // Adds error message to screen for netwrok error
+                                    let h5 = document.getElementById("message");
+                                    h5.style.color = "red";
+                                    h5.innerHTML = "Error try again";
+                                })
+                            }
+                            else{
+                                 // Adds error message to screen for invalid credentials
+                                const h5 = document.getElementById("message");
+                                h5.style.color = "red";
+                                h5.innerHTML = "Invalid email or password";
+                            }
+                        }
+                    }catch(e){
+                        const h5 = document.getElementById("message");
+                        h5.style.color = "red";
+                        h5.innerHTML = "Connection error: connect to internet, refresh page and try again";
+                    }
+                   
+                });
+            })()

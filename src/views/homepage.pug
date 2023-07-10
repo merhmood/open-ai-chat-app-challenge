@@ -1,0 +1,255 @@
+html
+  head
+    title= title
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet")
+    style.
+      * {
+        font-family: 'Poppins', sans-serif;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 3px 0px 4px rgba(0,0,0,0.4);
+      }
+      .header > button {
+        display: block;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+        margin: 0 10px 0 0;
+        padding-top: 5px;
+      }
+      .header > button svg{
+        display: inline-block;
+        margin-top: -15px;
+      }
+      header {
+        display: flex;
+        padding: 20px 35px;
+      }
+      header div {
+        margin-right: 20px; 
+      }
+      .error{
+        padding: 0px 20px;
+        height: 30px;
+        width: 100%;
+        margin: 4px 0;
+        color: red;
+      }
+      .icon{
+        /* Group 7 */
+        height: 40px;
+        background: #FF007A;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 25px;
+        padding-top: 4px;
+        color: #FFFFFF;
+      }
+      .icon h5{
+        text-align: center;
+        width: 40px;
+      }
+      .chats {
+        height: 445px;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        overflow-y: scroll;
+      }
+      .chats > div {
+        display: flex;
+        margin-bottom: 15px;
+      }
+      .chats .et{
+        justify-content: flex-end;
+      }
+      .chats > div div p {
+        background-color: #f1f1f1;
+        margin: 0 10px 10px 10px;
+        padding: 5px 10px;
+        border-radius: 12px;
+      }
+      .form {
+        margin: 15px 20px;
+      }
+      .form form {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #E0E0E0;
+        border-radius: 7px;
+        margin-top: 25px
+      }
+      .form form input{
+        display: block;
+        width: 95%;
+        height: 35px;
+        padding: 20px 10px;
+        border: none;
+        font-size: 14px;
+      }
+      .form form input:focus {
+        outline: none;
+      }
+      .form form button{
+        cursor: pointer;
+        background-color: white;
+        display: block;
+        border: none;
+        margin-right: 15px;
+      }
+      /* width */
+      .chats::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      .chats::-webkit-scrollbar-track {
+        background: #fff;
+      }
+
+      /* Handle */
+      .chats::-webkit-scrollbar-thumb {
+        background: #ff007a;
+      }
+  body
+    section.header
+      include includes/header.pug
+      button(id="signout")
+        svg(width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg")
+          path(d="M17.7141 3.96406L23.4703 9.72031C23.8078 10.0578 24 10.5219 24 11C24 11.4781 23.8078 11.9422 23.4703 12.2797L17.7141 18.0359C17.4141 18.3359 17.0109 18.5 16.5891 18.5C15.7125 18.5 15 17.7875 15 16.9109V14H9C8.17031 14 7.5 13.3297 7.5 12.5V9.5C7.5 8.67031 8.17031 8 9 8H15V5.08906C15 4.2125 15.7125 3.5 16.5891 3.5C17.0109 3.5 17.4141 3.66875 17.7141 3.96406ZM7.5 3.5H4.5C3.67031 3.5 3 4.17031 3 5V17C3 17.8297 3.67031 18.5 4.5 18.5H7.5C8.32969 18.5 9 19.1703 9 20C9 20.8297 8.32969 21.5 7.5 21.5H4.5C2.01562 21.5 0 19.4844 0 17V5C0 2.51562 2.01562 0.5 4.5 0.5H7.5C8.32969 0.5 9 1.17031 9 2C9 2.82969 8.32969 3.5 7.5 3.5Z" fill="#FF007A")
+    p(class='error', id='error')
+    section(class="chats", id="chats")
+      
+    section.form
+      form(id="form")
+        input(type="text", placeholder="Type your prompt here..." id="input")
+        button(id="chat")
+          svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+            path(d="M16.14 2.95998L7.11 5.95998C1.04 7.98998 1.04 11.3 7.11 13.32L9.79 14.21L10.68 16.89C12.7 22.96 16.02 22.96 18.04 16.89L21.05 7.86998C22.39 3.81998 20.19 1.60998 16.14 2.95998ZM16.46 8.33998L12.66 12.16C12.51 12.31 12.32 12.38 12.13 12.38C11.94 12.38 11.75 12.31 11.6 12.16C11.4605 12.0188 11.3823 11.8284 11.3823 11.63C11.3823 11.4316 11.4605 11.2411 11.6 11.1L15.4 7.27998C15.69 6.98998 16.17 6.98998 16.46 7.27998C16.75 7.56998 16.75 8.04998 16.46 8.33998Z" fill="#FF007A")
+    
+    script(src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous")
+    script.
+      // Signout module
+      (function() {
+        const signout = document.getElementById("signout");
+        signout.addEventListener("click", ()=>{
+          fetch("http://localhost:3000/logout", {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify({message: "logout"})
+          }).
+          then((res)=> res.json()).
+          then((data)=>{
+            if(data.message === "successful"){
+              window.location.href="http://localhost:3000/login";
+            }
+          })
+        });
+      })();
+      // Chat module
+      (function() {
+        const socket = io();
+        const form = document.getElementById("form");
+        form.addEventListener("submit", (e)=>{
+          e.preventDefault();
+        });
+        const chat = document.getElementById("chat");
+        chat.addEventListener("click", ()=>{
+          const input = document.getElementById("input");
+          if (input.value) {
+            // Send chat message to websocket
+            socket.emit('chat message', input.value);
+            // Adds ET chat to screen before fetch response from backend
+            const chats = document.getElementById('chats');
+            const et = document.createElement('div');
+            et.setAttribute('class', 'et');
+            const div2 = document.createElement('div');
+            div2.setAttribute('class', 'icon');
+            const h5 = document.createElement('h5');
+            h5.innerHTML = 'ET';
+            const div1 = document.createElement('div');
+            const para = document.createElement('p');
+            para.innerHTML = input.value;
+            div1.appendChild(para);
+            div2.appendChild(h5);
+            et.appendChild(div1);
+            et.appendChild(div2);
+            chats.appendChild(et);
+            // Clears input field
+            input.value = '';
+          }
+          socket.on('chat message', function(msg) {
+            const chats = document.getElementById('chats');
+            var child = chats.lastElementChild;
+            // Clears previous chats before display the new chat list 
+            while (child) {
+                chats.removeChild(child);
+                child = chats.lastElementChild;
+            }
+            if(msg !== 'error'){
+              for(let i = 0; i < msg.length; i++){
+                if(msg[i].role === 'user'){
+                  // Add the ET chat response UI to the chat screen of the application
+                  const et = document.createElement('div');
+                  et.setAttribute('class', 'et');
+                  const div1 = document.createElement('div');
+                  const para = document.createElement('p');
+                  para.innerHTML = msg[i].content;
+                  div1.appendChild(para);
+                  // Adds icon to the prompt
+                  const div2 = document.createElement('div');
+                  div2.setAttribute('class', 'icon');
+                  const h5 = document.createElement('h5');
+                  h5.innerHTML = 'ET';
+                  div2.appendChild(h5);
+                  // Adds message to screen
+                  et.appendChild(div1);
+                  et.appendChild(div2);
+                  chats.appendChild(et);
+                }
+                else{
+                  // Add the Ai chat response UI to the chat screen of the application
+                  const ai = document.createElement('div');
+                  ai.setAttribute('class', 'ai');
+                  // Adds icon to the prompt
+                  const div2 = document.createElement('div');
+                  div2.setAttribute('class', 'icon');
+                  const h5 = document.createElement('h5');
+                  h5.innerHTML = 'AI';
+                  div2.appendChild(h5);
+                  // Adds message to div wrapper
+                  const div1 = document.createElement('div');
+                  const para = document.createElement('p');
+                  para.innerHTML = msg[i].content;
+                  div1.appendChild(para);
+                  // Adds message to screen
+                  ai.appendChild(div2);
+                  ai.appendChild(div1);
+                  chats.appendChild(ai);
+                }
+              }
+              const error = document.getElementById('error');
+              error.innerHTML = ''
+            }else{
+              // Handles response error
+              const error = document.getElementById('error');
+              error.innerHTML = 'Chat overload, kindly wait for some time';
+            }
+          });
+        });
+        function addMessageToScreen(parent, child){
+          if(!parent && !child){
+            throw new Error("invalid parent or child element")   
+          }
+          parents.appendChild(child)
+        }
+      })();
