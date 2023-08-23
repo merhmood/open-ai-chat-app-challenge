@@ -1,2 +1,4 @@
 # removes node_modules from remote version control
 /node_modules
+
+.env
